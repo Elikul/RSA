@@ -1,7 +1,8 @@
 from tkinter import *  
 from tkinter import scrolledtext
 from tkinter import messagebox 
-from RSA import chooseKeys, encrypt, decrypt
+from RSA import chooseKeys
+from mult_homo_rsa import encryptH, decryptH
 
 def createWindow():  
     """
@@ -21,15 +22,15 @@ def createWindow():
         pr_k.insert(INSERT,str(prk))
         public_file.close()
      
-
     """
     Шифруем сообщение
     """
     def handlerEn_btn():
+        global globalver
         txt_out.delete(1.0, END)
         msg_in = txt_in.get(1.0, END)
         if msg_in != "\n":
-            msg_out = encrypt(msg_in)
+            msg_out = encryptH(msg_in)
             txt_out.insert(INSERT,str(msg_out))
         else:
             messagebox.showerror("Ошибка шифрования","Нельзя зашифровать пустое сообщение!")
@@ -41,7 +42,7 @@ def createWindow():
         txt_out.delete(1.0, END)
         msg_in = txt_in.get(1.0, END)
         if msg_in != "\n":
-            msg_out = decrypt(msg_in)
+            msg_out = decryptH(msg_in)
             txt_out.insert(INSERT,str(msg_out))
         else:
             messagebox.showerror("Ошибка расшифровки","Нельзя расшифровать пустое сообщение!")
